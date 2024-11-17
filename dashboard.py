@@ -29,7 +29,7 @@ def load_data():
 
 # Tạo ứng dụng Streamlit
 def main():
-    st.title("Phân Tích Điểm THPT - 2023 & 2024/n sử dụng cloud mongodb")
+    st.title("Phân Tích Điểm THPT - 2023 & 2024\nsử dụng cloud mongodb")
     
     # Tải dữ liệu
     with st.spinner("Đang tải dữ liệu..."):
@@ -54,7 +54,7 @@ def main():
 
     # Phân tích điểm trung bình theo môn học
     if not filtered_data.empty:
-        st.subheader("Điểm trung bình theo môn học")
+        st.subheader("Điểm trung bình theo môn học của năm đã chọn")
         avg_scores = filtered_data[subjects].mean().reset_index()
         avg_scores.columns = ["Subject", "Average Score"]
         st.write(avg_scores)
@@ -70,7 +70,7 @@ def main():
             st.plotly_chart(fig_dist)
 
         # Xu hướng điểm qua các năm
-        st.subheader("Xu hướng điểm qua các năm")
+        st.subheader("Xu hướng điểm qua các năm đã chọn")
         trend_data = filtered_data.groupby(["year"])[subjects].mean().reset_index()
         trend_data = pd.melt(trend_data, id_vars=["year"], var_name="Subject", value_name="Average Score")
         fig_trend = px.line(trend_data, x="year", y="Average Score", color="Subject", title="Xu hướng điểm theo năm")
