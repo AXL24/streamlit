@@ -56,7 +56,7 @@ def main():
     if not filtered_data.empty:
         st.subheader("Điểm trung bình theo môn học của năm đã chọn")
         trung_binh = filtered_data[cac_mon].mean().reset_index()
-        trung_binh.columns = ["Môn", "Diem trung bình"]
+        trung_binh.columns = ["Môn", "Điểm trung bình"]
         st.write(trung_binh)
 
         # Biểu đồ điểm trung bình
@@ -72,8 +72,8 @@ def main():
         # Xu hướng điểm qua các năm
         st.subheader("Xu hướng điểm qua các năm đã chọn")
         xu_huong = filtered_data.groupby(["nam"])[cac_mon].mean().reset_index()
-        xu_huong = pd.melt(xu_huong, id_vars=["nam"], var_name="Môn", value_name="Điểm trung bình")
-        fig_trend = px.line(xu_huong, x="nam", y="Điểm trung bình", color="Môn", title="Xu hướng điểm theo năm")
+        xu_huong = pd.melt(xu_huong, id_vars=["nam"], var_name="mon", value_name="Điểm trung bình")
+        fig_trend = px.line(xu_huong, x="nam", y="Điểm trung bình", color="mon", title="Xu hướng điểm theo năm")
         st.plotly_chart(fig_trend)
 
 if __name__ == "__main__":
