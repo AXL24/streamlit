@@ -26,7 +26,7 @@ def load_data_by_filter(db, year=None, subject=None):
         "sinh_hoc": 1,
         "lich_su": 1,
         "dia_li": 1,
-        "gdcg": 1,
+        "gdcd": 1,
     }
 
     # Truy vấn MongoDB
