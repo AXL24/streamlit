@@ -8,7 +8,7 @@ MONGO_URI = "mongodb+srv://axellent2004:096212618@bigdata.l07vk.mongodb.net/"  #
 DATABASE_NAME = "thpt"
 
 
-@st.cache
+@st.cache_data
 def fetch_and_label_data(collection, year):
     data = list(collection.find({}))
     df = pd.DataFrame(data)
