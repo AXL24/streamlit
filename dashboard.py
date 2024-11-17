@@ -1,10 +1,10 @@
 import streamlit as st
-from merge import combined_data
+from merge import fetch_and_label_data
 import pandas as pd
 import plotly.express as px
 
 
-
+combined_data= fetch_and_label_data()
 # Tính toán điểm trung bình của từng môn
 def calculate_average_scores(data):
     subject_columns = ["toan", "ngu_van", "ngoai_ngu", "vat_li", "hoa_hoc", "sinh_hoc", "lich_su", "dia_li", "gdcd"]

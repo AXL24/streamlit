@@ -10,20 +10,21 @@ def fetch_and_label_data(collection, year):
     data = list(collection.find({}))
     df = pd.DataFrame(data)
     df["Year"] = year  # Add Year column
-    return df
+    
 
 # Connect to MongoDB
-client = MongoClient(MONGO_URI)
-db = client[DATABASE_NAME]
+    client = MongoClient(MONGO_URI)
+    db = client[DATABASE_NAME]
 
 # Fetch data from three collections
-diem_2022 = fetch_and_label_data(db["2022"], 2022)
-diem_2023 = fetch_and_label_data(db["2023"], 2023)
-diem_2024 = fetch_and_label_data(db["2024"], 2024)
+    diem_2022 = fetch_and_label_data(db["2022"], 2022)
+    diem_2023 = fetch_and_label_data(db["2023"], 2023)
+    diem_2024 = fetch_and_label_data(db["2024"], 2024)
 
 
 # Combine the tables using pd.concat
-combined_data = pd.concat([diem_2022, diem_2023, diem_2024], ignore_index=True)
+    combined_data = pd.concat([diem_2022, diem_2023, diem_2024], ignore_index=True)
 
 # Output the combined table
-print(combined_data)
+    return combined_data
+
