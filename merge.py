@@ -1,19 +1,18 @@
 from pymongo import MongoClient
 import pandas as pd
 
-def fetch_and_label_data(collection, year):
 # MongoDB connection details
-    MONGO_URI = "mongodb+srv://axellent2004:0964212618@bigdata.l07vk.mongodb.net/"  # Replace with your MongoDB URI
-    DATABASE_NAME = "thpt"
+MONGO_URI = "mongodb+srv://axellent2004:0964212618@bigdata.l07vk.mongodb.net/"  # Replace with your MongoDB URI
+DATABASE_NAME = "thpt"
 
 # Function to fetch data and label it with year
-
+def fetch_and_label_data(collection, year):
     data = list(collection.find({}))
     df = pd.DataFrame(data)
-    df["Year"] = year
-      # Add Year column
-    
+    df["Year"] = year  # Add Year column
+    return df
 
+def prepare():
 # Connect to MongoDB
     client = MongoClient(MONGO_URI)
     db = client[DATABASE_NAME]
