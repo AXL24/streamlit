@@ -56,11 +56,11 @@ def main():
     if not filtered_data.empty:
         st.subheader("Điểm trung bình theo môn học của năm đã chọn")
         avg_scores = filtered_data[subjects].mean().reset_index()
-        avg_scores.columns = ["Môn học", "Điểm"]
+        avg_scores.columns = ["Subject", "Average Score"]
         st.write(avg_scores)
 
         # Biểu đồ điểm trung bình
-        fig_avg = px.bar(avg_scores, x="Subject", y="Average Score", title="Điểm trung bình theo môn học của năm đã chọn")
+        fig_avg = px.bar(avg_scores, x="Subject", y="Average Score", title="Điểm trung bình theo môn học")
         st.plotly_chart(fig_avg)
 
         # Phân phối điểm
