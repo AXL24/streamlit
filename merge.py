@@ -29,7 +29,7 @@ def prepare():
             df.drop(columns=["_id"], inplace=True)
 
     # Combine the tables using pd.concat
-    combined_data = pd.concat([diem_2022, diem_2023, diem_2024], ignore_index=True)
+    combined_data = pd.concat([diem_2024], ignore_index=True)
 
     return combined_data
 
