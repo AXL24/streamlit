@@ -16,7 +16,7 @@ def fetch_data(db, collection_name, year_filter=None):
     projection = {
         "sbd": 1, "toan": 1, "ngu_van": 1, "ngoai_ngu": 1,
         "vat_li": 1, "hoa_hoc": 1, "sinh_hoc": 1, "lich_su": 1,
-        "dia_li": 1, "gdcd": 1, "ma_ngoai_ngu": 1, "_id": 0
+        "dia_li": 1, "gdcd": 1, "_id": 0
     }
 
     # Truy vấn dữ liệu MongoDB

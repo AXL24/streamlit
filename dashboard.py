@@ -14,6 +14,9 @@ def load_data():
     db = connect_to_mongodb(MONGO_URI, DATABASE_NAME)
     
     # Tải dữ liệu từ 2 collection năm 2023 và 2024
+    data_2022 = fetch_data(db, "2022")  # Kết quả là một DataFrame
+    data_2022["year"] = 2022  # Thêm cột "year"
+    
     data_2023 = fetch_data(db, "2023")  # Kết quả là một DataFrame
     data_2023["year"] = 2023  # Thêm cột "year"
     
@@ -21,12 +24,12 @@ def load_data():
     data_2024["year"] = 2024  # Thêm cột "year"
     
     # Kết hợp dữ liệu
-    combined_data = pd.concat([data_2023, data_2024], ignore_index=True)
+    combined_data = pd.concat([data_2022, data_2023, data_2024], ignore_index=True)
     return combined_data
 
 # Tạo ứng dụng Streamlit
 def main():
-    st.title("Phân Tích Điểm THPT - 2023 & 2024")
+    st.title("Phân Tích Điểm THPT - 2023 & 2024/n sử dụng cloud mongodb")
     
     # Tải dữ liệu
     with st.spinner("Đang tải dữ liệu..."):
@@ -34,7 +37,7 @@ def main():
     
     # Sidebar: Bộ lọc
     st.sidebar.header("Bộ lọc")
-    years = st.sidebar.multiselect("Chọn năm", [2023, 2024], default=[2023, 2024])
+    years = st.sidebar.multiselect("Chọn năm", [2022, 2023, 2024], default=[2022, 2023, 2024])
     subjects = st.sidebar.multiselect(
         "Chọn môn học",
         ["toan", "ngu_van", "ngoai_ngu", "vat_li", "hoa_hoc", "sinh_hoc", "lich_su", "dia_li", "gdcd"],
