@@ -13,15 +13,15 @@ def load_data():
     # Kết nối tới MongoDB
     db = connect_to_mongodb(MONGO_URI, DATABASE_NAME)
     
-    # Tải dữ liệu từ 2 bộ năm 2023 và 2024
-    data_2023 = fetch_data(db, "2023", year_filter=None)
+    # Tải dữ liệu từ 2 collection năm 2023 và 2024
+    data_2023 = fetch_data(db, "2023")  # Kết quả là một DataFrame
     data_2023["year"] = 2023  # Thêm cột "year"
     
-    data_2024 = fetch_data(db, "2024", year_filter=None)
+    data_2024 = fetch_data(db, "2024")  # Kết quả là một DataFrame
     data_2024["year"] = 2024  # Thêm cột "year"
     
     # Kết hợp dữ liệu
-    combined_data = pd.concat([2023, 2024], ignore_index=True)
+    combined_data = pd.concat([data_2023, data_2024], ignore_index=True)
     return combined_data
 
 # Tạo ứng dụng Streamlit
