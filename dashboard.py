@@ -8,7 +8,7 @@ def main():
     combined_data= prepare()
     df =pd.DataFrame(combined_data)
     st.subheader("First 10 Records")
-    st.dataframe(df.head(10))
+    st.dataframe(df)
 
 
 if __name__ == "__main__":
