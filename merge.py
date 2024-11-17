@@ -14,7 +14,7 @@ def fetch_and_label_data(collection, year):
     df["Year"] = year  # Add Year column
     return df
 
-@st.cache
+@st.cache_data
 def prepare():
 # Connect to MongoDB
     client = MongoClient(MONGO_URI)
