@@ -1,40 +1,34 @@
 from pymongo import MongoClient
 import pandas as pd
-import streamlit as st
 
-# MongoDB connection details
+# Kết nối MongoDB
+def connect_to_mongodb(uri, database_name):
+    client = MongoClient("mongodb+srv://axellent2004:0964212618@bigdata.l07vk.mongodb.net/")
+    return client["thpt"]
 
-MONGO_URI = "mongodb+srv://axellent2004:0964212618@bigdata.l07vk.mongodb.net/"  # Replace with your MongoDB URI
-DATABASE_NAME = "thpt"
+# Truy vấn và tải dữ liệu theo bộ lọc
+def load_data_by_filter(db, year=None, subject=None):
+    query = {}
+    if year:
+        query["Year"] = {"$in": year}
+    if subject:
+        query["Subject"] = {"$in": subject}
 
-# Function to fetch data and label it with year
-def fetch_and_label_data(collection, year):
-    data = list(collection.find({}))
-    df = pd.DataFrame(data)
-    df["Year"] = year  # Add Year column
-    return df
+    # Chỉ lấy các cột cần thiết
+    projection = {
+        "sbd": 1,
+        "year": 1,
+        "toan": 1,
+        "ngu_van": 1,
+        "ngoai_ngu": 1,
+        "vat_li": 1,
+        "hoa_hoc": 1,
+        "sinh_hoc": 1,
+        "lich_su": 1,
+        "dia_li": 1,
+        "gdcg": 1,
+    }
 
-
-def prepare():
-# Connect to MongoDB
-    client = MongoClient(MONGO_URI)
-    db = client[DATABASE_NAME]
-
-# Fetch data from three collections
-    
-    diem_2023 = fetch_and_label_data(db["2023"], 2023)
-    diem_2024 = fetch_and_label_data(db["2024"], 2024)
-
-    for df in [diem_2023, diem_2024]:
-        if "_id" in df.columns:
-            df.drop(columns=["_id"], inplace=True)
-
-
-# Combine the tables using pd.concat
-    combined_data = pd.concat([diem_2023, diem_2024], ignore_index=True)
-    
-
-# Output the combined table
-    return combined_data
-
-
+    # Truy vấn MongoDB
+    records = db.scores.find(query, projection)
+    return pd.DataFrame(records)
