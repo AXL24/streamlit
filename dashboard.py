@@ -11,7 +11,7 @@ DATABASE_NAME = "thpt"
 @st.cache_data
 def load_data():
     # Kết nối tới MongoDB
-    db = connect_to_mongodb(MONGO_URI, DATABASE_NAME)
+    db = connect_to_mongodb(MONGO_URI, DATABASE_NAME) 
     
     # Tải dữ liệu từ 2 collection năm 2023 và 2024
     data_2022 = fetch_data(db, "2022")  # Kết quả là một DataFrame
