@@ -20,11 +20,10 @@ def prepare():
     db = client[DATABASE_NAME]
 
     # Fetch data from three collections with caching
-    diem_2022 = fetch_and_label_data(db["2022"], 2022)
-    diem_2023 = fetch_and_label_data(db["2023"], 2023)
+    
     diem_2024 = fetch_and_label_data(db["2024"], 2024)
 
-    for df in [diem_2022, diem_2023, diem_2024]:
+    for df in [diem_2024]:
         if "_id" in df.columns:
             df.drop(columns=["_id"], inplace=True)
 
