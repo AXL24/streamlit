@@ -33,5 +33,5 @@ def prepare():
 
 # Output the combined table
     return combined_data
-print(prepare())
+
 
