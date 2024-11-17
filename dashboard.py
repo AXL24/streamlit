@@ -53,7 +53,4 @@ def main():
             st.plotly_chart(fig)
 
         # Xu hướng điểm qua các năm
-        st.subheader("Xu hướng điểm qua các năm")
-        if not filtered_data.empty:
-            trend_data = filtered_data.groupby(["Year"]).mean().reset_index()
-            fig = px.line(trend_data, x="Year", y="toan", title="Xu hướng điểm Toán qua các")
+        
