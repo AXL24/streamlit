@@ -60,13 +60,13 @@ def main():
         st.write(avg_scores)
 
         # Biểu đồ điểm trung bình
-        fig_avg = px.bar(avg_scores, x="Subject", y="Average Score", title="Điểm trung bình theo môn học")
+        fig_avg = px.bar(avg_scores, x="Subject", y="Average Score", title="Điểm trung bình theo môn học của năm đã chọn")
         st.plotly_chart(fig_avg)
 
         # Phân phối điểm
         st.subheader("Phân phối điểm")
         for subject in subjects:
-            fig_dist = px.histogram(filtered_data, x=subject, nbins=20, title=f"Phân phối điểm {subject}")
+            fig_dist = px.histogram(filtered_data, x=subject, nbins=20, title=f"Phân phối điểm {subject} của năm đã chọn")
             st.plotly_chart(fig_dist)
 
         # Xu hướng điểm qua các năm
