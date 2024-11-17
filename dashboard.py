@@ -14,10 +14,10 @@ def load_data():
     db = connect_to_mongodb(MONGO_URI, DATABASE_NAME)
     
     # Tải dữ liệu từ 2 bộ năm 2023 và 2024
-    data_2023 = fetch_data(db, "scores_2023", year_filter=None)
+    data_2023 = fetch_data(db, "2023", year_filter=None)
     data_2023["year"] = 2023  # Thêm cột "year"
     
-    data_2024 = fetch_data(db, "scores_2024", year_filter=None)
+    data_2024 = fetch_data(db, "2024", year_filter=None)
     data_2024["year"] = 2024  # Thêm cột "year"
     
     # Kết hợp dữ liệu
