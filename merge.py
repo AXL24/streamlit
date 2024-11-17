@@ -22,10 +22,16 @@ def prepare():
     diem_2023 = fetch_and_label_data(db["2023"], 2023)
     diem_2024 = fetch_and_label_data(db["2024"], 2024)
 
+    for df in [diem_2022, diem_2023, diem_2024]:
+        if "_id" in df.columns:
+            df.drop(columns=["_id"], inplace=True)
+
 
 # Combine the tables using pd.concat
     combined_data = pd.concat([diem_2022, diem_2023, diem_2024], ignore_index=True)
+    
 
 # Output the combined table
     return combined_data
+print(prepare())
 
