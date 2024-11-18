@@ -55,6 +55,7 @@ def main():
     st.subheader("Dữ liệu đã lọc")
     st.write(f"Tổng số bản ghi: {len(filtered_data)}")
     st.dataframe(filtered_data.head(100))  # Hiển thị 100 bản ghi đầu tiên
+    st.subheader("Tìm kiếm theo số báo danh")
     if roll_number:
         search_results = combined_data[(combined_data["nam"] == selected_year) & 
                                        (combined_data["sbd"] == roll_number)]
@@ -68,13 +69,13 @@ def main():
 
 
 
-    # Phân tích điểm trung bình theo môn học
+   
     if not filtered_data.empty:
         # Search functionality
-        st.subheader("Tìm kiếm theo số báo danh")
+        
    
 
-
+        # Phân tích điểm trung bình theo môn học
         st.subheader("Điểm trung bình theo môn học của năm đã chọn")
         trung_binh = filtered_data[cac_mon].mean().reset_index()
         trung_binh.columns = ["Môn", "Điểm trung bình"]
