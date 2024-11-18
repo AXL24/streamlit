@@ -50,11 +50,9 @@ def main():
 
     # Lọc dữ liệu theo năm
     filtered_data = combined_data[combined_data["nam"].isin(cac_nam)]
-    
-    # Hiển thị bảng dữ liệu
-    st.subheader("Dữ liệu đã lọc")
-    st.write(f"Tổng số bản ghi: {len(filtered_data)}")
-    st.dataframe(filtered_data.head(100))  # Hiển thị 100 bản ghi đầu tiên
+
+
+    #Tìm kiếm thí sinh
     st.subheader("Tìm kiếm theo số báo danh")
     if roll_number:
         search_results = combined_data[(combined_data["nam"] == selected_year) & 
@@ -67,8 +65,13 @@ def main():
             st.warning(f"Không tìm thấy kết quả cho số báo danh: {roll_number} năm {selected_year}")
 
 
+    
+    # Hiển thị bảng dữ liệu
+    st.subheader("Dữ liệu đã lọc")
+    st.write(f"Tổng số bản ghi: {len(filtered_data)}")
+    st.dataframe(filtered_data.head(100))  # Hiển thị 100 bản ghi đầu tiên
 
-
+    
    
     if not filtered_data.empty:
         # Search functionality
