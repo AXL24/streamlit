@@ -22,6 +22,7 @@ def fetch_data(db, collection_name):
     return data
 
 # Load and combine data
+@st.cache_data
 def load_combined_data(uri, db_name):
     """Load data from multiple years and combine into a single DataFrame."""
     db = connect_to_mongodb(uri, db_name)
