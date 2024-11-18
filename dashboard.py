@@ -29,7 +29,7 @@ def load_data():
 
 # Tạo ứng dụng Streamlit
 def main():
-    st.title("Phân Tích Điểm THPT - 2023 & 2024\nsử dụng cloud mongodb")
+    st.title("Phân Tích Điểm Và Tra Cứu Điểm THPT Các Năm gần đây \nsử dụng cloud mongodb")
     
     # Tải dữ liệu
     with st.spinner("Đang tải dữ liệu..."):
@@ -44,7 +44,7 @@ def main():
         default=["toan", "ngu_van"]
     ) 
      # Search by roll number
-    st.sidebar.header("Tìm kiếm thí sinh")
+    st.sidebar.header("Tìm kiếm theo sbd")
     selected_year = st.sidebar.selectbox("Chọn năm để tìm kiếm", [2022, 2023, 2024])
     roll_number = st.sidebar.text_input("Nhập số báo danh")
 
@@ -53,10 +53,10 @@ def main():
 
 
     #Tìm kiếm thí sinh
-    st.subheader("Tìm kiếm theo số báo danh")
+    st.subheader("1. Tìm kiếm dữ liệu theo số báo danh")
     if roll_number:
         search_results = combined_data[(combined_data["nam"] == selected_year) & 
-                                       (combined_data["sbd"] == roll_number)]
+        (combined_data["sbd"] == roll_number)]
         
         if not search_results.empty:
             st.write(f"Kết quả tìm kiếm cho số báo danh: {roll_number} năm {selected_year}")
@@ -67,35 +67,33 @@ def main():
 
     
     # Hiển thị bảng dữ liệu
-    st.subheader("Dữ liệu đã lọc")
+    st.subheader("2. Bộ dữ liệu tham khảo")
     st.write(f"Tổng số bản ghi: {len(filtered_data)}")
     st.dataframe(filtered_data.head(100))  # Hiển thị 100 bản ghi đầu tiên
 
     
    
     if not filtered_data.empty:
-        # Search functionality
         
    
-
         # Phân tích điểm trung bình theo môn học
-        st.subheader("Điểm trung bình theo môn học của năm đã chọn")
+        st.subheader("3.1 Điểm trung bình theo môn học của năm đã chọn")
         trung_binh = filtered_data[cac_mon].mean().reset_index()
         trung_binh.columns = ["Môn", "Điểm trung bình"]
         st.write(trung_binh)
 
         # Biểu đồ điểm trung bình
-        fig_avg = px.bar(trung_binh, x="Môn", y="Điểm trung bình", title="Điểm trung bình theo môn học")
+        fig_avg = px.bar(trung_binh, x="Môn", y="Điểm trung bình", title="3.2 Điểm trung bình theo môn học")
         st.plotly_chart(fig_avg)
 
         # Phân phối điểm
-        st.subheader("Phân phối điểm")
+        st.subheader("4. Phân phối điểm")
         for mon in cac_mon:
             fig_dist = px.histogram(filtered_data, x=mon, nbins=20, title=f"Phân phối điểm {mon} của năm đã chọn")
             st.plotly_chart(fig_dist)
 
         # Xu hướng điểm qua các năm
-        st.subheader("Xu hướng điểm qua các năm đã chọn")
+        st.subheader("5. Xu hướng điểm qua các năm đã chọn")
         xu_huong = filtered_data.groupby(["nam"])[cac_mon].mean().reset_index()
         xu_huong = pd.melt(xu_huong, id_vars=["nam"], var_name="mon", value_name="Điểm trung bình")
         fig_trend = px.line(xu_huong, x="nam", y="Điểm trung bình", color="mon", title="Xu hướng điểm theo năm")
