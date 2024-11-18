@@ -29,11 +29,8 @@ def load_data():
 
 # Tạo ứng dụng Streamlit
 def main():
-    st.title("Phân Tích Điểm THPT - 2023 & 2024\nsử dụng cloud mongodb")
-    
-    # Tải dữ liệu
-    with st.spinner("Đang tải dữ liệu..."):
-        combined_data = load_data()
+    st.title("Phân Tích Điểm THPT - 2023 & 2024\n sử dụng cloud mongodb")
+    combined_data = load_data()
     
     # Sidebar: Bộ lọc
     st.sidebar.header("Bộ lọc")
@@ -44,7 +41,7 @@ def main():
         default=["toan", "ngu_van"]
     )
      # Search by roll number
-    st.sidebar.header("Tìm kiếm")
+    st.sidebar.header("Tìm kiếm thí sinh")
     selected_year = st.sidebar.selectbox("Chọn năm để tìm kiếm", [2022, 2023, 2024])
     roll_number = st.sidebar.text_input("Nhập số báo danh")
 
@@ -52,7 +49,7 @@ def main():
     filtered_data = combined_data[combined_data["nam"].isin(cac_nam)]
     
     # Hiển thị bảng dữ liệu
-    st.subheader("Dữ liệu đã lọc")
+    st.subheader("Dữ liệu tham khảo")
     st.write(f"Tổng số bản ghi: {len(filtered_data)}")
     st.dataframe(filtered_data.head(100))  # Hiển thị 100 bản ghi đầu tiên
 
