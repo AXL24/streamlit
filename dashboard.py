@@ -10,6 +10,7 @@ DATABASE_NAME = "thpt"
 # Caching để tăng hiệu suất
 @st.cache_data
 def load_data():
+    
     # Kết nối tới MongoDB
     db = connect_to_mongodb(MONGO_URI, DATABASE_NAME) 
     
