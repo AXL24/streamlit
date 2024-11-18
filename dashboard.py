@@ -43,6 +43,10 @@ def main():
         ["toan", "ngu_van", "ngoai_ngu", "vat_li", "hoa_hoc", "sinh_hoc", "lich_su", "dia_li", "gdcd"],
         default=["toan", "ngu_van"]
     )
+     # Search by roll number
+    st.sidebar.header("Tìm kiếm")
+    selected_year = st.sidebar.selectbox("Chọn năm để tìm kiếm", [2022, 2023, 2024])
+    roll_number = st.sidebar.text_input("Nhập số báo danh")
 
     # Lọc dữ liệu theo năm
     filtered_data = combined_data[combined_data["nam"].isin(cac_nam)]
@@ -75,6 +79,18 @@ def main():
         xu_huong = pd.melt(xu_huong, id_vars=["nam"], var_name="mon", value_name="Điểm trung bình")
         fig_trend = px.line(xu_huong, x="nam", y="Điểm trung bình", color="mon", title="Xu hướng điểm theo năm")
         st.plotly_chart(fig_trend)
+
+    # Search functionality
+    st.subheader("Tìm kiếm theo số báo danh")
+    if roll_number:
+        search_results = combined_data[(combined_data["nam"] == selected_year) & 
+                                       (combined_data["sbd"] == roll_number)]
+        
+        if not search_results.empty:
+            st.write(f"Kết quả tìm kiếm cho số báo danh: {roll_number} năm {selected_year}")
+            st.dataframe(search_results)
+        else:
+            st.warning(f"Không tìm thấy kết quả cho số báo danh: {roll_number} năm {selected_year}")
 
 if __name__ == "__main__":
     main()
