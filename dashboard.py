@@ -42,7 +42,7 @@ def main():
         "Chọn môn học",
         ["toan", "ngu_van", "ngoai_ngu", "vat_li", "hoa_hoc", "sinh_hoc", "lich_su", "dia_li", "gdcd"],
         default=["toan", "ngu_van"]
-    )
+    ) 
      # Search by roll number
     st.sidebar.header("Tìm kiếm thí sinh")
     selected_year = st.sidebar.selectbox("Chọn năm để tìm kiếm", [2022, 2023, 2024])
