@@ -25,4 +25,7 @@ def fetch_data(db, collection_name, year_filter=None):
 
     # Chuẩn hóa tên cột
     df.columns = df.columns.str.lower()
+    if "sbd" in df.columns:
+        columns = ["sbd"] + [col for col in df.columns if col != "sbd"]
+        df = df[columns]
     return df

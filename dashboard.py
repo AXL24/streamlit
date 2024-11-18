@@ -10,6 +10,7 @@ DATABASE_NAME = "thpt"
 # Caching để tăng hiệu suất
 @st.cache_data
 def load_data():
+    
     # Kết nối tới MongoDB
     db = connect_to_mongodb(MONGO_URI, DATABASE_NAME) 
     
@@ -29,11 +30,8 @@ def load_data():
 
 # Tạo ứng dụng Streamlit
 def main():
-    st.title("Phân Tích Điểm THPT - 2023 & 2024\nsử dụng cloud mongodb")
-    
-    # Tải dữ liệu
-    with st.spinner("Đang tải dữ liệu..."):
-        combined_data = load_data()
+    st.title("Phân Tích Điểm THPT - 2023 & 2024\n sử dụng cloud mongodb")
+    combined_data = load_data()
     
     # Sidebar: Bộ lọc
     st.sidebar.header("Bộ lọc")
@@ -44,7 +42,7 @@ def main():
         default=["toan", "ngu_van"]
     )
      # Search by roll number
-    st.sidebar.header("Tìm kiếm")
+    st.sidebar.header("Tìm kiếm thí sinh")
     selected_year = st.sidebar.selectbox("Chọn năm để tìm kiếm", [2022, 2023, 2024])
     roll_number = st.sidebar.text_input("Nhập số báo danh")
 
@@ -52,12 +50,26 @@ def main():
     filtered_data = combined_data[combined_data["nam"].isin(cac_nam)]
     
     # Hiển thị bảng dữ liệu
-    st.subheader("Dữ liệu đã lọc")
+    st.subheader("Dữ liệu tham khảo")
     st.write(f"Tổng số bản ghi: {len(filtered_data)}")
     st.dataframe(filtered_data.head(100))  # Hiển thị 100 bản ghi đầu tiên
 
     # Phân tích điểm trung bình theo môn học
     if not filtered_data.empty:
+        # Search functionality
+        st.subheader("Tìm kiếm theo số báo danh")
+    if roll_number:
+        search_results = combined_data[(combined_data["nam"] == selected_year) & 
+                                       (combined_data["sbd"] == roll_number)]
+        
+        if not search_results.empty:
+            st.write(f"Kết quả tìm kiếm cho số báo danh: {roll_number} năm {selected_year}")
+            st.dataframe(search_results)
+        else:
+            st.warning(f"Không tìm thấy kết quả cho số báo danh: {roll_number} năm {selected_year}")
+
+
+
         st.subheader("Điểm trung bình theo môn học của năm đã chọn")
         trung_binh = filtered_data[cac_mon].mean().reset_index()
         trung_binh.columns = ["Môn", "Điểm trung bình"]
@@ -80,17 +92,6 @@ def main():
         fig_trend = px.line(xu_huong, x="nam", y="Điểm trung bình", color="mon", title="Xu hướng điểm theo năm")
         st.plotly_chart(fig_trend)
 
-    # Search functionality
-    st.subheader("Tìm kiếm theo số báo danh")
-    if roll_number:
-        search_results = combined_data[(combined_data["nam"] == selected_year) & 
-                                       (combined_data["sbd"] == roll_number)]
-        
-        if not search_results.empty:
-            st.write(f"Kết quả tìm kiếm cho số báo danh: {roll_number} năm {selected_year}")
-            st.dataframe(search_results)
-        else:
-            st.warning(f"Không tìm thấy kết quả cho số báo danh: {roll_number} năm {selected_year}")
-
+    
 if __name__ == "__main__":
     main()
