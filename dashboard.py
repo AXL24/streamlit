@@ -4,10 +4,10 @@ import pandas as pd
 import plotly.express as px
 
 # Kết nối MongoDB
-MONGO_URI = "mongodb+srv://axellent2004:0964212618@bigdata.l07vk.mongodb.net/"  # Thay bằng MongoDB URI của bạn
+MONGO_URI = "mongodb+srv://axellent2004:0964212618@bigdata.l07vk.mongodb.net/" 
 DATABASE_NAME = "thpt"
 
-# Caching để tăng hiệu suất
+
 @st.cache_data
 def load_data():
     # Kết nối tới MongoDB
