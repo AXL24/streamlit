@@ -58,6 +58,20 @@ def main():
 
     # Phân tích điểm trung bình theo môn học
     if not filtered_data.empty:
+        # Search functionality
+        st.subheader("Tìm kiếm theo số báo danh")
+    if roll_number:
+        search_results = combined_data[(combined_data["nam"] == selected_year) & 
+                                       (combined_data["sbd"] == roll_number)]
+        
+        if not search_results.empty:
+            st.write(f"Kết quả tìm kiếm cho số báo danh: {roll_number} năm {selected_year}")
+            st.dataframe(search_results)
+        else:
+            st.warning(f"Không tìm thấy kết quả cho số báo danh: {roll_number} năm {selected_year}")
+
+
+
         st.subheader("Điểm trung bình theo môn học của năm đã chọn")
         trung_binh = filtered_data[cac_mon].mean().reset_index()
         trung_binh.columns = ["Môn", "Điểm trung bình"]
@@ -80,17 +94,6 @@ def main():
         fig_trend = px.line(xu_huong, x="nam", y="Điểm trung bình", color="mon", title="Xu hướng điểm theo năm")
         st.plotly_chart(fig_trend)
 
-    # Search functionality
-    st.subheader("Tìm kiếm theo số báo danh")
-    if roll_number:
-        search_results = combined_data[(combined_data["nam"] == selected_year) & 
-                                       (combined_data["sbd"] == roll_number)]
-        
-        if not search_results.empty:
-            st.write(f"Kết quả tìm kiếm cho số báo danh: {roll_number} năm {selected_year}")
-            st.dataframe(search_results)
-        else:
-            st.warning(f"Không tìm thấy kết quả cho số báo danh: {roll_number} năm {selected_year}")
-
+    
 if __name__ == "__main__":
     main()
