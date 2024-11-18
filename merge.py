@@ -9,7 +9,7 @@ def connect_to_mongodb(uri, database_name):
 # Truy vấn dữ liệu theo điều kiện
 def fetch_data(db, collection_name, year_filter=None):
     query = {}
-    if year_filter:
+    if year_filter: 
         query = {"nam": {"$in": year_filter}}   # Lọc theo năm
 
     # Lấy chỉ các cột cần thiết
