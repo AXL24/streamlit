@@ -32,8 +32,8 @@ def main():
     st.title("Phân Tích Điểm THPT - 2023 & 2024\nsử dụng cloud mongodb")
     
     # Tải dữ liệu
-    with st.spinner("Đang tải dữ liệu..."):
-        combined_data = load_data()
+    
+    combined_data = load_data()
     
     # Sidebar: Bộ lọc
     st.sidebar.header("Bộ lọc")
